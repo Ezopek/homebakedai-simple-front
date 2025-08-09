@@ -3,6 +3,8 @@
 This React application provides a minimal interface for testing WebSocket endpoints.
 It is built with [Vite](https://vite.dev/) and [Material UI](https://mui.com/).
 
+It also includes a simple login form compatible with [Quarkus form-based authentication](https://quarkus.io/guides/security-authentication-mechanisms#form-auth). Users must authenticate before accessing the WebSocket tester.
+
 ## Getting Started
 
 ```bash
