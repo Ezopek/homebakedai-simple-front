@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 import LoginForm from './LoginForm.jsx';
+import { LOGIN_URL } from './config.js';
 
 describe('LoginForm', () => {
   afterEach(() => {
@@ -17,7 +18,7 @@ describe('LoginForm', () => {
     await userEvent.type(screen.getByLabelText(/password/i), 'pass');
     await userEvent.click(screen.getByRole('button', { name: /login/i }));
 
-    expect(fetch).toHaveBeenCalledWith('/j_security_check', expect.any(Object));
+    expect(fetch).toHaveBeenCalledWith(LOGIN_URL, expect.any(Object));
     expect(onLogin).toHaveBeenCalled();
   });
 
