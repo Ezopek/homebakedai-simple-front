@@ -9,13 +9,25 @@ import {
   ListItemText,
   Typography,
 } from '@mui/material';
+import LoginForm from './LoginForm.jsx';
 
 export default function App() {
   const [url, setUrl] = useState('ws://localhost:8080/ws');
   const [connected, setConnected] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
+  const [authenticated, setAuthenticated] = useState(false);
   const wsRef = useRef(null);
+
+  const handleLogin = () => setAuthenticated(true);
+  const handleLogout = async () => {
+    try {
+      await fetch('/logout', { method: 'POST' });
+    } catch {
+      // ignore
+    }
+    setAuthenticated(false);
+  };
 
   const connect = () => {
     const ws = new WebSocket(url);
@@ -42,12 +54,25 @@ export default function App() {
     return () => wsRef.current?.close();
   }, []);
 
+  if (!authenticated) {
+    return (
+      <Container maxWidth="sm" sx={{ py: 4 }}>
+        <LoginForm onLogin={handleLogin} />
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="sm" sx={{ py: 4 }}>
       <Stack spacing={2}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          WebSocket Tester
-        </Typography>
+        <Stack direction="row" justifyContent="space-between" alignItems="center">
+          <Typography variant="h4" component="h1" gutterBottom>
+            WebSocket Tester
+          </Typography>
+          <Button variant="outlined" onClick={handleLogout}>
+            Logout
+          </Button>
+        </Stack>
 
         <Stack direction="row" spacing={1}>
           <TextField
