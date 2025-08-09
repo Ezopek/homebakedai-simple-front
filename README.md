@@ -13,3 +13,7 @@ npm run dev
 ```
 
 The app opens in development mode. Enter your WebSocket endpoint, connect, and start sending messages.
+
+## Configuration
+
+Set the backend address by defining a `VITE_BACKEND_URL` environment variable. The value should be the base URL (e.g. `http://backend:8080`). It is used for login requests and as the default WebSocket endpoint (`ws://backend:8080/ws`).

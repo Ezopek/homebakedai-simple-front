@@ -10,9 +10,10 @@ import {
   Typography,
 } from '@mui/material';
 import LoginForm from './LoginForm.jsx';
+import { WS_URL, LOGOUT_URL } from './config.js';
 
 export default function App() {
-  const [url, setUrl] = useState('ws://localhost:8080/ws');
+  const [url, setUrl] = useState(WS_URL);
   const [connected, setConnected] = useState(false);
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
@@ -22,7 +23,7 @@ export default function App() {
   const handleLogin = () => setAuthenticated(true);
   const handleLogout = async () => {
     try {
-      await fetch('/logout', { method: 'POST' });
+      await fetch(LOGOUT_URL, { method: 'POST' });
     } catch {
       // ignore
     }

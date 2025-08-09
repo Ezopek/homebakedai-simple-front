@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Stack, TextField, Button, Typography } from '@mui/material';
+import { LOGIN_URL } from './config.js';
 
 export default function LoginForm({ onLogin }) {
   const [username, setUsername] = useState('');
@@ -14,7 +15,7 @@ export default function LoginForm({ onLogin }) {
     formData.append('j_password', password);
 
     try {
-      const response = await fetch('/j_security_check', {
+      const response = await fetch(LOGIN_URL, {
         method: 'POST',
         body: formData,
         headers: {
